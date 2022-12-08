@@ -33,7 +33,6 @@ def contact_book_create_contact():
     #     tuple_for_database_insert = (database_query_result + 1),
     # else:
     #     tuple_for_database_insert = 0, 
-
     print("Enter the name:")
     tuple_for_database_insert = input(),  #might actually not be a tuple
     print("Enter the city:")
