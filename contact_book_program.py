@@ -10,6 +10,26 @@ from datetime import date
 
 #contact_book_home_screen()  
 
+class ContactBookRepository:
+
+    def update_and_commit_to_database_name(self, update_list_values):
+        database_cursor.execute("UPDATE Contact_Book SET name = ? \
+            WHERE contact_id = ?", update_list_values)
+
+    def update_and_commit_to_database_city_address(self, update_list_values):
+        database_cursor.execute("UPDATE Contact_Book SET city_address = ? \
+            WHERE contact_id = ?", update_list_values)
+
+    def update_and_commit_to_database_contact_number(self, update_list_values):
+        database_cursor.execute("UPDATE Contact_Book SET contact_number = ? \
+            WHERE contact_id = ?", update_list_values)
+
+    def update_and_commit_to_database_email_address(self, update_list_values):
+        database_cursor.execute("UPDATE Contact_Book SET email_address = ? \
+            WHERE contact_id = ?", update_list_values)
+
+
+contact_book_repository = ContactBookRepository()
 
 
 def contact_book_home_screen():
@@ -68,29 +88,30 @@ def contact_book_update_contact():
     if updated_name != '':
         list_for_database_update = [updated_name]
         list_for_database_update.append(id_to_be_updated)
-        update_and_commit_to_database('name', list_for_database_update)  #should I assign 'name to a variable?
+        contact_book_repository.update_and_commit_to_database_name(list_for_database_update)  #should I assign 'name to a variable?
     print("Enter the updated city (Leave blank if you wish to retain)")
     updated_city = str(input())
     if updated_city != '':
         list_for_database_update = [updated_city]
         list_for_database_update.append(id_to_be_updated)
-        update_and_commit_to_database('city_address', list_for_database_update)  
+        contact_book_repository.update_and_commit_to_database_city_address(list_for_database_update)  
     print("Enter the updated contact number (Leave blank if you wish to retain)")
     updated_contact_number = str(input())
     if updated_contact_number != '':
         list_for_database_update = [updated_contact_number]
         list_for_database_update.append(id_to_be_updated)
-        update_and_commit_to_database('contact_number', list_for_database_update)  
+        contact_book_repository.update_and_commit_to_database_contact_number(list_for_database_update)  
     print("Enter the updated email address (Leave blank if you wish to retain)")
     updated_email_address = str(input())
     if updated_email_address != '':
         list_for_database_update = [updated_email_address]
         list_for_database_update.append(id_to_be_updated)
-        update_and_commit_to_database('email_address', list_for_database_update)  
-    # database_cursor.execute("UPDATE Contact_Book SET " + 'name' +" = ? \
-    # WHERE contact_id = ?", [tuple_for_formatted_database_update[])
+        contact_book_repository.update_and_commit_to_database_email_address(list_for_database_update)  
+    # database_cursor.execute("UPDATE Contact_Book SET ? = ? \
+    #     WHERE contact_id = ?", ['name','pol',4])
     # should be able to only select the columns where the values will be update.
     # Refactor later for efficiency. Might need to concatenate or execute many
+    
     contact_book_database_connection.commit()
     print("*************\nCreating contact was successful\n*************")
 
@@ -102,7 +123,6 @@ def action_chosen_from_input(chosen_action):
         contact_book_update_contact()
     elif chosen_action == 3:
         contact_book_delete_contact()
-        pass
     elif chosen_action == 4:
         pass
     elif chosen_action == 5:
@@ -111,12 +131,7 @@ def action_chosen_from_input(chosen_action):
     else:
         print("\nAction chosen was invalid\n")
 
-    
-def update_and_commit_to_database(column_name,update_list_values):
-    database_cursor.execute("UPDATE Contact_Book SET " + column_name + " = ? \
-    WHERE contact_id = ?", update_list_values)
-    
-    
+   
 #can create a second database of deleted values (12.8.2022 cancelled)
 
 
