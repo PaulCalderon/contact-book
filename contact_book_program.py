@@ -44,6 +44,7 @@ def contact_book_home_screen():
     action_chosen_from_input(int(input()))
     contact_book_home_screen()
 
+
 def contact_book_create_contact():
     # database_query_result = database_cursor.execute("SELECT * FROM Contact_Book \
     # ORDER BY unique_id DESC")  
@@ -116,6 +117,11 @@ def contact_book_update_contact():
     print("*************\nCreating contact was successful\n*************")
 
 
+def contact_book_list_contact():
+    #for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address")
+    pass
+
+
 def action_chosen_from_input(chosen_action):
     if chosen_action == 1:
         contact_book_create_contact()
@@ -124,7 +130,7 @@ def action_chosen_from_input(chosen_action):
     elif chosen_action == 3:
         contact_book_delete_contact()
     elif chosen_action == 4:
-        pass
+        contact_book_list_contact()
     elif chosen_action == 5:
         contact_book_database_connection.close()
         exit()
