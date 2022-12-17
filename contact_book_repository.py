@@ -11,7 +11,7 @@ database_cursor.execute(
     )  #currently not storing creation date of contact
 
 
-class ContactBookRepository:
+class ContactBookUpdateRepository:
 
     def update_and_commit_to_database_name(self, update_list_values):
         database_cursor.execute("UPDATE Contact_Book SET name = ? \
@@ -29,7 +29,8 @@ class ContactBookRepository:
         database_cursor.execute("UPDATE Contact_Book SET email_address = ? \
             WHERE contact_id = ?", update_list_values)
 
-contact_book_repository = ContactBookRepository()
+
+contact_book_repository = ContactBookUpdateRepository()
 
 
 def contact_book_create_contact():
@@ -47,7 +48,6 @@ def contact_book_create_contact():
     contact_book_database_connection.commit()
     print("*************\nCreating contact was successful\n*************")
 
-
 def contact_book_delete_contact():
     print("Enter the contact ID you wish to delete")
     id_to_be_deleted = str(input())
@@ -55,8 +55,6 @@ def contact_book_delete_contact():
     database_cursor.execute("DELETE FROM Contact_Book WHERE contact_id = ?", 
         id_to_be_deleted)
     contact_book_database_connection.commit()
-    pass
-
 
 def contact_book_update_contact():
     print("Enter the contact ID you wish to update")
@@ -90,13 +88,11 @@ def contact_book_update_contact():
     contact_book_database_connection.commit()
     print("*************\nCreating contact was successful\n*************")
 
-
 def contact_book_list_contact():
+    print("Contact_ID | Name | City | Contact Number | Email Address")
     for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
-        print(row)
-    #print()
-#pass
-
+        print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))
+        
 def contact_book_close():
     contact_book_database_connection.close()
 

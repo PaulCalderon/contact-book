@@ -1,4 +1,3 @@
-import sqlite3
 from datetime import date
 from contact_book_repository import *
 
@@ -13,7 +12,7 @@ def action_chosen_from_input(chosen_action):
     elif chosen_action == 4:
         contact_book_list_contact()
     elif chosen_action == 5:
-        contact_book_close()  #bat walang error to? hindi ko defined yung connection object sa file na to, na import ko rin ba yung object mula sa module?
+        contact_book_close()  
         exit()
     else:
         print("\nAction chosen was invalid\n")
@@ -34,3 +33,4 @@ def contact_book_home_screen():
 
 if __name__ == "__main__":
     contact_book_home_screen()
+    
