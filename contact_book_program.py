@@ -118,8 +118,10 @@ def contact_book_update_contact():
 
 
 def contact_book_list_contact():
-    #for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address")
-    pass
+    for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
+        print(row)
+        #print()
+    #pass
 
 
 def action_chosen_from_input(chosen_action):
