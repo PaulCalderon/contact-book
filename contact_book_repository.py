@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import date
+from contact import Contact
 
 
 contact_book_database_connection = sqlite3.connect("ContactBook.db")
@@ -33,22 +33,14 @@ class ContactBookUpdateRepository:
 contact_book_repository = ContactBookUpdateRepository()
 
 
-def contact_book_create_contact():
-    print("Enter the name:")
-    tuple_for_database_insert = input(),  #might actually not be a tuple
-    print("Enter the city:")
-    tuple_for_database_insert += input(),
-    print("Enter the contact number:")
-    tuple_for_database_insert += input(),
-    print("Enter the email_address:")
-    tuple_for_database_insert += input(),
+def create_contact(contact: Contact):
     database_cursor.execute("INSERT INTO Contact_Book (name, city_address, \
         contact_number, email_address) VALUES(?,?,?,?)",
-        tuple_for_database_insert)
+        [contact.name, contact.city, contact.contact_no, contact.email])
     contact_book_database_connection.commit()
-    print("*************\nCreating contact was successful\n*************")
+    
 
-def contact_book_delete_contact():
+def delete_contact():
     print("Enter the contact ID you wish to delete")
     id_to_be_deleted = str(input())
         #could make code to confirm the contact to be deleted
@@ -56,7 +48,7 @@ def contact_book_delete_contact():
         id_to_be_deleted)
     contact_book_database_connection.commit()
 
-def contact_book_update_contact():
+def update_contact():
     print("Enter the contact ID you wish to update")
     id_to_be_updated = str(input())
         #could make code to feedback the name of the contact selected to be updated
@@ -88,11 +80,11 @@ def contact_book_update_contact():
     contact_book_database_connection.commit()
     print("*************\nCreating contact was successful\n*************")
 
-def contact_book_list_contact():
+def list_contact():
     print("Contact_ID | Name | City | Contact Number | Email Address")
     for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
         print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))
         
-def contact_book_close():
+def close():
     contact_book_database_connection.close()
 
