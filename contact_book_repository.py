@@ -40,12 +40,9 @@ def create_contact(contact: Contact):
     contact_book_database_connection.commit()
     
 
-def delete_contact():
-    print("Enter the contact ID you wish to delete")
-    id_to_be_deleted = str(input())
-        #could make code to confirm the contact to be deleted
-    database_cursor.execute("DELETE FROM Contact_Book WHERE contact_id = ?", 
-        id_to_be_deleted)
+def delete_contact(id_to_be_deleted: int):
+    #could make code to confirm the contact to be deleted
+    database_cursor.execute("DELETE FROM Contact_Book WHERE contact_id = ?", [id_to_be_deleted])
     contact_book_database_connection.commit()
 
 def update_contact():
@@ -82,7 +79,8 @@ def update_contact():
 
 def list_contact():
     print("Contact_ID | Name | City | Contact Number | Email Address")
-    for row in database_cursor.execute("SELECT contact_id, name, city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
+    for row in database_cursor.execute("SELECT contact_id, name, \
+        city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
         print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))
         
 def close():
