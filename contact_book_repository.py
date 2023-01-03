@@ -11,7 +11,7 @@ database_cursor.execute(
     )  #currently not storing creation date of contact
 
 
-class ContactBookUpdateRepository:
+class ContactBookUpdateRepository:  #can make generic constructor to only execute update command once
 
     def update_and_commit_to_database_name(self, update_list_values):
         database_cursor.execute("UPDATE Contact_Book SET name = ? \
@@ -45,40 +45,31 @@ def delete_contact(id_to_be_deleted: int):
     database_cursor.execute("DELETE FROM Contact_Book WHERE contact_id = ?", [id_to_be_deleted])
     contact_book_database_connection.commit()
 
-def update_contact():
-    print("Enter the contact ID you wish to update")
-    id_to_be_updated = str(input())
-        #could make code to feedback the name of the contact selected to be updated
-    print("Enter the updated name (Leave blank if you wish to retain)")
-    updated_name = str(input())
-    # tuple_for_formatted_database_update = []
-    if updated_name != '':
-        list_for_database_update = [updated_name]
+def update_contact(contact: Contact):
+    id_to_be_updated = str(contact.contact_id)  #might be dumb *******
+    if contact.name != '':
+        list_for_database_update = [contact.name]
         list_for_database_update.append(id_to_be_updated)
         contact_book_repository.update_and_commit_to_database_name(list_for_database_update)  #should I assign 'name to a variable?
-    print("Enter the updated city (Leave blank if you wish to retain)")
-    updated_city = str(input())
-    if updated_city != '':
-        list_for_database_update = [updated_city]
+
+    if contact.city != '':
+        list_for_database_update = [contact.city]
         list_for_database_update.append(id_to_be_updated)
         contact_book_repository.update_and_commit_to_database_city_address(list_for_database_update)  
-    print("Enter the updated contact number (Leave blank if you wish to retain)")
-    updated_contact_number = str(input())
-    if updated_contact_number != '':
-        list_for_database_update = [updated_contact_number]
+
+    if contact.contact_no != '':
+        list_for_database_update = [contact.contact_no]
         list_for_database_update.append(id_to_be_updated)
         contact_book_repository.update_and_commit_to_database_contact_number(list_for_database_update)  
-    print("Enter the updated email address (Leave blank if you wish to retain)")
-    updated_email_address = str(input())
-    if updated_email_address != '':
-        list_for_database_update = [updated_email_address]
+
+    if contact.email != '':
+        list_for_database_update = [contact.email]
         list_for_database_update.append(id_to_be_updated)
         contact_book_repository.update_and_commit_to_database_email_address(list_for_database_update)     
     contact_book_database_connection.commit()
-    print("*************\nCreating contact was successful\n*************")
+
 
 def list_contact():
-    print("Contact_ID | Name | City | Contact Number | Email Address")
     for row in database_cursor.execute("SELECT contact_id, name, \
         city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
         print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))

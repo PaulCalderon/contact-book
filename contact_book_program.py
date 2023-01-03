@@ -3,6 +3,7 @@ from contact import Contact_Record
 from contact_book_repository import create_contact
 from contact_book_repository import delete_contact
 from contact_book_repository import update_contact
+from contact_book_repository import list_contact
 from contact_book_repository import close
 #from contact_book_repository import *
 
@@ -15,9 +16,9 @@ def action_chosen_from_input(chosen_action):
     elif chosen_action == 3:
         delete()
     elif chosen_action == 4:
-        contact_book_list_contact()
+        list()
     elif chosen_action == 5:
-        close() 
+        close()
         exit()
     else:
         print("\nAction chosen was invalid\n")
@@ -72,6 +73,12 @@ def update():
         contact_number, contact_email)
     update_contact(contact_to_update)
     print("*************\nUpdating contact was successful\n*************")
+
+
+def list():
+    print("Contact_ID | Name | City | Contact Number | Email Address")
+    list_contact()
+
 
 
 if __name__ == "__main__":
