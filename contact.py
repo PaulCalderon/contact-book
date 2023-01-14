@@ -5,7 +5,7 @@ class Contact_Record:
         self.contact_no = contact_no
         self.email = email
 
-class Contact(Contact_Record):
+class Contact(Contact_Record): #inherits Contact_Record
     def __init__(self, contact_id: int, name: str, city: str, contact_no: str, email: str):
         self.contact_id = contact_id
         Contact_Record.__init__ (self, name, city, contact_no, email)
