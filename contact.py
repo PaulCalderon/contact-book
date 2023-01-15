@@ -1,14 +1,22 @@
-class Contact_Record:
+class Contact:
+    def __init__(self, cid: int, name: str, city: str, contact_no: str, email: str):
+        self.cid = cid
+        self.name = name
+        self.city = city
+        self.contact_no = contact_no
+        self.email = email
+
+class Contact_View:
     def __init__(self, name: str, city: str, contact_no: str, email: str):
         self.name = name
         self.city = city
         self.contact_no = contact_no
         self.email = email
 
-class Contact(Contact_Record): #inherits Contact_Record
-    def __init__(self, contact_id: int, name: str, city: str, contact_no: str, email: str):
-        self.contact_id = contact_id
-        Contact_Record.__init__ (self, name, city, contact_no, email)
+# class Contact(Contact_Record): #inherits Contact_Record
+#     def __init__(self, contact_id: int, name: str, city: str, contact_no: str, email: str):
+#         self.contact_id = contact_id
+#         Contact_Record.__init__ (self, name, city, contact_no, email)
         
 
         

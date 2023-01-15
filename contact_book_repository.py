@@ -46,7 +46,7 @@ def delete_contact(id_to_be_deleted: int):
     contact_book_database_connection.commit()
 
 def update_contact(contact: Contact):
-    id_to_be_updated = str(contact.contact_id)  #might be dumb *******
+    id_to_be_updated = str(contact.cid)  #might be dumb *******
     if contact.name != '':
         list_for_database_update = [contact.name]
         list_for_database_update.append(id_to_be_updated)
