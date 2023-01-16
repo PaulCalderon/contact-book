@@ -37,7 +37,7 @@ class Contact_Repository:
         contact_book_database_connection.commit()
 
     @staticmethod
-    def get_all(self) -> list[Contact]:
+    def get_all() -> list[Contact]:
         contact_list: list[Contact] = []
         result = database_cursor.execute("SELECT contact_id, name, \
         city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id")
@@ -64,3 +64,6 @@ class Contact_Repository:
 
         contact = Contact(result[0], result[1], result[2], result[3], result[4])
         return contact
+    @staticmethod
+    def close():
+        contact_book_database_connection.close()
