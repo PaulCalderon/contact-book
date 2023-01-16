@@ -1,11 +1,11 @@
 import sqlite3
-from typing import Optional  
+from typing import Optional
 from contact import Contact
 from contact import Contact_View
 
 #TODO implement connection manager for opening and closing database connection
 
-contact_book_database_connection = sqlite3.connect("ContactBook.db")
+contact_book_database_connection = sqlite3.connect("ContactBook.db") 
 database_cursor = contact_book_database_connection.cursor()
 
 class Contact_Repository:
@@ -58,10 +58,9 @@ class Contact_Repository:
         # city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
         #     print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))
         # print(result[0])
-        if(len(result) == 0):
-            print("hello")
+        #if(len(result) == 0):
+        if result is None:
             return None
-        else:
-            
-            contact = Contact(result[0], result[1], result[2], result[3], result[4])
-            return contact
+
+        contact = Contact(result[0], result[1], result[2], result[3], result[4])
+        return contact

@@ -1,4 +1,5 @@
-from contact import Contact
+from contact import Contact, Contact_View
+
 #from contact import Contact_Record
 from contact_repository import Contact_Repository
 from contact_book_repository import create_contact
@@ -48,7 +49,7 @@ def create():
     contact_number = input()
     print("Enter the email_address:")
     contact_email = input()
-    contact_to_add = Contact_Record(contact_name, contact_city, contact_number,
+    contact_to_add = Contact_View(contact_name, contact_city, contact_number,
         contact_email)
     create_contact(contact_to_add)
     print("*************\nCreating contact was successful\n*************")
@@ -58,8 +59,8 @@ def create():
 def delete():  # check if entry exist
     print("Enter the contact ID you wish to delete")
 
-    #TODO make logic for retaining values if user input is blank
-    cid = int(input())
+    #TODO make logic for retaining values if user input is blank ==== DONE
+    cid = str(input())  #deviates from interface made on mermaid js
     if is_entry_null(cid):
         pass
         #contact object not used
@@ -83,7 +84,8 @@ def update(): # check if entry exists
     else:
         print("Contact doesn't exist. Returning to home")
         contact_book_home_screen()
-    #TODO make logic for retaining values if user input is blank DONE
+
+    #TODO make logic for retaining values if user input is blank ==== DONE
     print("Enter the updated name (Leave blank if you wish to retain)")
     contact_name = input()
     if contact_name == '':
