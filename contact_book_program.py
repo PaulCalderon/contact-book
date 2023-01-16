@@ -1,5 +1,5 @@
 from contact import Contact
-from contact import Contact_Record
+#from contact import Contact_Record
 from contact_repository import Contact_Repository
 from contact_book_repository import create_contact
 from contact_book_repository import delete_contact
@@ -57,7 +57,18 @@ def create():
 
 def delete():  # check if entry exist
     print("Enter the contact ID you wish to delete")
-    delete_contact(int(input()))
+
+    #TODO make logic for retaining values if user input is blank
+    cid = int(input())
+    if is_entry_null(cid):
+        pass
+        #contact object not used
+        #contact = Contact_Repository.get_one(cid)
+    else:
+        print("Contact doesn't exist. Returning to home")
+        contact_book_home_screen()
+
+    delete_contact(cid)
     print("*************\nDeleting contact was successful\n*************")
     contact_book_home_screen()
 
@@ -68,21 +79,28 @@ def update(): # check if entry exists
     # get_one()
     # if not 0 then continue
     if is_entry_null(cid):
+        contact = Contact_Repository.get_one(cid)
+    else:
         print("Contact doesn't exist. Returning to home")
         contact_book_home_screen()
-    else:
-        contact = Contact_Repository.get_one(cid)
-    
-    #TODO make logic for retaining values if user input is blank
-    
+    #TODO make logic for retaining values if user input is blank DONE
     print("Enter the updated name (Leave blank if you wish to retain)")
     contact_name = input()
+    if contact_name == '':
+        contact_name = contact.name
     print("Enter the updated city (Leave blank if you wish to retain)")
     contact_city = input()
+    if contact_city == '':
+        contact_city = contact.city
     print("Enter the updated contact number (Leave blank if you wish to retain)")
     contact_number = input()
+    if contact_number == '':
+        contact_number = contact.contact_no
     print("Enter the updated email address (Leave blank if you wish to retain)")
     contact_email = input()
+    if contact_email == '':
+        contact_email = contact.email
+
     contact_to_update = Contact(cid, contact_name, contact_city,
         contact_number, contact_email)
     update_contact(contact_to_update)

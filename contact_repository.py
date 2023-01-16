@@ -4,6 +4,7 @@ from contact import Contact
 from contact import Contact_View
 
 #TODO implement connection manager for opening and closing database connection
+
 contact_book_database_connection = sqlite3.connect("ContactBook.db")
 database_cursor = contact_book_database_connection.cursor()
 
@@ -47,9 +48,20 @@ class Contact_Repository:
 
     @staticmethod
     def get_one(cid: int) -> Optional[Contact]:
-        result = database_cursor.execute("SELECT * FROM Contact_Book WHERE contact_id = ?", cid)
+        cursor = database_cursor.execute("SELECT * FROM Contact_Book WHERE contact_id = ?", cid)
+        result = cursor.fetchone()
+        
+            #print(row)
+        # for row in database_cursor.execute("SELECT * FROM Contact_Book WHERE contact_id = %s", cid):
+        #     print(row)
+        # for row in database_cursor.execute("SELECT contact_id, name, \
+        # city_address, contact_number, email_address FROM Contact_Book ORDER BY contact_id"):
+        #     print ("%s | %s | %s | %s | %s" % (row[0], row[1], row[2], row[3], row[4]))
+        # print(result[0])
         if(len(result) == 0):
+            print("hello")
             return None
         else:
+            
             contact = Contact(result[0], result[1], result[2], result[3], result[4])
             return contact
