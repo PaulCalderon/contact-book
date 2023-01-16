@@ -11,7 +11,7 @@ database_cursor = contact_book_database_connection.cursor()
 class Contact_Repository:
     @staticmethod
     def create(contact: Contact_View):
-        database_cursor.execute("INSERT INTO Contact_Book (cid, name, \
+        database_cursor.execute("INSERT INTO Contact_Book (name, \
         city_address, contact_number, email_address) VALUES(?,?,?,?)",
             [contact.name, contact.city, contact.contact_no, contact.email])
         contact_book_database_connection.commit()
@@ -27,7 +27,7 @@ class Contact_Repository:
             email_address = ?
         WHERE contact_id = ?
         """
-        , [contact.cid, contact.name, contact.city, contact.contact_no, contact.email]
+        , [contact.name, contact.city, contact.contact_no, contact.email, contact.cid]
         )
         contact_book_database_connection.commit()
 

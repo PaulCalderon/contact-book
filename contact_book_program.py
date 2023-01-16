@@ -2,11 +2,6 @@ from contact import Contact, Contact_View
 
 #from contact import Contact_Record
 from contact_repository import Contact_Repository
-from contact_book_repository import create_contact
-from contact_book_repository import delete_contact
-from contact_book_repository import update_contact
-from contact_book_repository import list_contact
-from contact_book_repository import close
 #from contact_book_repository import *
 
 
