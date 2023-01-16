@@ -21,7 +21,7 @@ def action_chosen_from_input(chosen_action):
     elif chosen_action == 4:
         list()
     elif chosen_action == 5:
-        close()
+        Contact_Repository.close()
         exit()
     else:
         print("\nAction chosen was invalid\n")
@@ -51,7 +51,7 @@ def create():
     contact_email = input()
     contact_to_add = Contact_View(contact_name, contact_city, contact_number,
         contact_email)
-    create_contact(contact_to_add)
+    Contact_Repository.create(contact_to_add)
     print("*************\nCreating contact was successful\n*************")
     contact_book_home_screen()
 
@@ -69,7 +69,7 @@ def delete():  # check if entry exist
         print("Contact doesn't exist. Returning to home")
         contact_book_home_screen()
 
-    delete_contact(cid)
+    Contact_Repository.delete(cid)
     print("*************\nDeleting contact was successful\n*************")
     contact_book_home_screen()
 
@@ -105,7 +105,7 @@ def update(): # check if entry exists
 
     contact_to_update = Contact(cid, contact_name, contact_city,
         contact_number, contact_email)
-    update_contact(contact_to_update)
+    Contact_Repository.update(contact_to_update)
     print("*************\nUpdating contact was successful\n*************")
     contact_book_home_screen()
     
@@ -123,8 +123,11 @@ def is_entry_null(cid: int):
 
 def list():
     print("Contact_ID | Name | City | Contact Number | Email Address")
-
-    list_contact()
+    #list_contact()
+    result = Contact_Repository.get_all()
+    for contact in result:
+        print("%s | %s | %s | %s | %s" %
+            (contact.cid, contact.name, contact.city, contact.contact_no, contact.email))
     contact_book_home_screen()
 
 
